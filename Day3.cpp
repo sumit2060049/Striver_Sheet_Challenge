@@ -78,3 +78,55 @@ public:
         return element;
     }
 };
+
+
+//229. Majority Element II
+
+class Solution {
+public:
+    vector<int> majorityElement(vector<int>& nums) {
+        int n=nums.size();
+        int c1=0,c2=0;
+        int e1=INT_MIN;
+        int e2=INT_MIN;
+        vector<int>ans;
+
+        for(int i=0;i<n;i++){
+            if(c1==0 && nums[i]!=e2){
+                c1=1;
+                e1=nums[i];
+            }
+            else if(c2==0 && nums[i]!=e1){
+                c2=1;
+                e2=nums[i];
+            }
+            else if(e1==nums[i])c1++;
+            else if(e2==nums[i])c2++;
+            else{
+                c1--;
+                c2--;
+            }
+        }
+        int coun1=0;
+        int coun2=0;
+        for(int i=0;i<n;i++){
+            if(nums[i]==e1){
+                coun1++;
+                if(coun1==(n/3)+1)
+                    ans.push_back(e1);
+            }
+            else if(nums[i]==e2)
+            {
+                coun2++;
+                if(coun2==(n/3)+1)
+                    ans.push_back(e2);
+            }
+            if(ans.size()==2)
+                break;
+        }
+
+
+        return ans;
+
+    }
+};
